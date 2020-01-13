@@ -149,4 +149,19 @@ class MemberRepositoryTest {
             System.out.println("member = " + member);
         }
     }
+
+    @Test
+    public void returnType() {
+        Member m1 = new Member("AAA", 10);
+        Member m2 = new Member("BBB", 20);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+        List<Member> findMember1 = memberRepository.findListByUsername("AAAa");
+        System.out.println("findMember1 = " + findMember1);
+        Member findMember2 = memberRepository.findMemberByUsername("AAAa");
+        System.out.println("findMember2 = " + findMember2);
+        Optional<Member> findMember3 = memberRepository.findOptionalByUsername("AAAa");
+        System.out.println("findMember3 = " + findMember3);
+    }
 }
