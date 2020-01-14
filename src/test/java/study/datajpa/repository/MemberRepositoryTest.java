@@ -235,7 +235,7 @@ class MemberRepositoryTest {
         teamRepository.save(teamA);
         teamRepository.save(teamB);
         Member member1 = new Member("member1", 10, teamA);
-        Member member2 = new Member("member1", 10, teamB);
+        Member member2 = new Member("member2", 10, teamB);
         memberRepository.save(member1);
         memberRepository.save(member2);
 
@@ -254,5 +254,32 @@ class MemberRepositoryTest {
             System.out.println("member.teamClass = " + member.getTeam().getClass());
             System.out.println("member.team = " + member.getTeam().getName());
         }
+    }
+
+    @Test
+    public void queryHint() {
+        // given
+        Member member1 = new Member("member1", 10);
+        memberRepository.save(member1);
+        em.flush();
+        em.clear();
+
+        // when
+        Member findMember = memberRepository.findReadOnlyByUsername("member1");
+        findMember.setUsername("member2");
+
+        em.flush();
+    }
+
+    @Test
+    public void lock() {
+        // given
+        Member member1 = new Member("member1", 10);
+        memberRepository.save(member1);
+        em.flush();
+        em.clear();
+
+        // when
+        List<Member> result = memberRepository.findLockByUsername("member1");
     }
 }
