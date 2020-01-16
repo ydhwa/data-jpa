@@ -20,7 +20,7 @@ public class ProjectionTest {
 
 
     @Test
-    public void basic() {
+    public void projection() {
         // given
         Team teamA = new Team("teamA");
         em.persist(teamA);
